@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright © 2022 Novobi, LLC. See LICENSE file for full copyright and licensing details. -->
+
+<odoo>
+    <record id="library_book_view_tree_inherit" model="ir.ui.view">
+        <field name="name">Library Book List Inherit</field>
+        <field name="model">library.book</field>
+        <field name="inherit_id" ref="novobi_library_book.library_book_view_tree"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name ="isbn" string="ISBN"/>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name ="short_name" string="Short Name"/>
+                <field name ="status" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="library_book_view_form_inherit" model="ir.ui.view">
+        <field name="name">Library Book Form Inherit</field>
+        <field name="model">library.book</field>
+        <field name="inherit_id" ref="novobi_library_book.library_book_view_form"></field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_lease" type="object" string="Lease"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name ="isbn" string="ISBN"/>
+                            <field name ="status" string="Status"/>
+                        </group>
+                        <group>
+                            <field name ="location" string="Location"/>
+                            <field name ="current_borrower_id" string="Current Borrower"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="library_book_view_search_inherit" model="ir.ui.view">
+        <field name="name">Library Book Search Inherit</field>
+        <field name="model">library.book</field>
+        <field name="inherit_id" ref="novobi_library_book.library_book_view_search"></field>
+        <field name="arch" type="xml">
+            <search>
+                    <field name="isbn" string="ISBN"/>                
+                    <filter string="Without Release Date" name="without_author" domain="[('date_release','=',False)]" />
+                    <group expand="1" string="Group By">
+                        <filter string="Status" name="status" context="{'group_by':'status', 'residual_visible':True}"/>
+                    </group>
+            </search>
+        </field>
+    </record>
+    
+</odoo>

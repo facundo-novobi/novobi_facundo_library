@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright © 2022 Novobi, LLC. See LICENSE file for full copyright and licensing details. -->
+
+<odoo>
+
+    <!--############################## VIEWS ##############################-->
+    <record id="package_borrower_wizard_form" model="ir.ui.view">
+        <field name="name">package.borrower.report.wizard</field>
+        <field name="model">package.borrower.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Borrower">
+                <header />
+                <sheet>
+                    <group>
+                        <field name="borrower" />
+                        <field name="return_date"/>
+                    </group>
+                    <group>
+                        <button name="action_confirm_borrower" type="object" string="Confirm"/>
+                        <button special="cancel" type="object" string="Cancel"/>
+                    </group>                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='package_borrower_wizard' model='ir.actions.act_window'>
+        <field name="name">Borrower</field>
+        <field name="res_model">package.borrower.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="package_borrower_wizard_form"/>
+    </record> 
+
+    
+    <menuitem 
+        id="package_borrower_wizard_menu"
+        name="Book Borrower" 
+        parent="novobi_library_book.library_book_menu"    
+        action="novobi_facundo_library.package_borrower_wizard"
+    />
+    
+</odoo>
